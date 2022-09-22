@@ -8,22 +8,72 @@ date: "2022-09-22"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## HW 1
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+#Load Libraries 
+```{r}
+library(tidyverse)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+```
+#Get Data 
+```{r}
+library(tidyverse)
+
+data("penguins", package = "palmerpenguins")
+
+nrow(penguins)
+ncol(penguins)
+head(penguins)
+
+flipper_l <- penguins %>%
+  pull(flipper_length_mm)
+mean_flip <- mean(flipper_l, na.rm = TRUE) #ignores missing values in the mean calculation 
+
+```{r}
+
+penguins %>%
+ggplot(aes(x = flipper_length_mm, y = bill_length_mm, color = species)) + 
+  geom_point() 
+
+  ggsave("./plots/scatterplot.pdf")
+
 ```
 
-## Including Plots
+Penguins Data - This data includes information on a sample of Penguins including Species, island, bill length, flipper length, body mass, sex, year. It includes 8 variables and 344 rows. 
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+The mean of the sample is `r mean_flip`
+
+```{r}
+samp = rnorm(10) 
+length(samp)
+
+example_df = tibble(
+  vec_numeric = samp,
+  vev_log = samp > 0,
+  vec_char = c("My", "name", "is", "Sabah", "a", "b", "c", "d", "e", "f"),
+  vec_factor = factor(c("male", "male", "male",  "female", "female", "other", "other", "other", "other", "other"))
+)
+
+
+example_df %>%
+  pull(vec_numeric) %>%
+  mean()
+
+example_df %>%
+  pull(vev_log) %>%
+  mean() 
+
+example_df %>%
+  pull(vec_char) %>%
+  mean() 
+
+example_df %>%
+  pull(vec_factor) %>%
+  mean() 
+
+
 ```
+Cannot get the mean value of a character or factor. You can get the mean value of the numeric and logical vector 
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
