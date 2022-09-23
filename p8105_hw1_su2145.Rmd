@@ -30,8 +30,6 @@ flipper_l <- penguins %>%
   pull(flipper_length_mm)
 mean_flip <- mean(flipper_l, na.rm = TRUE) #ignores missing values in the mean calculation 
 
-```{r}
-
 penguins %>%
 ggplot(aes(x = flipper_length_mm, y = bill_length_mm, color = species)) + 
   geom_point() 
@@ -71,9 +69,28 @@ example_df %>%
 
 example_df %>%
   pull(vec_factor) %>%
-  mean() 
+  mean()
 
 
 ```
 Cannot get the mean value of a character or factor. You can get the mean value of the numeric and logical vector 
+
+Checking to see if as.numeric function works on variables 
+
+``` {r echo=T, results='hide'}
+
+example_df %>%
+pull(vec_char) %>%
+  as.numeric
+
+example_df %>%
+pull(vec_factor) %>%
+  as.numeric()
+
+example_df %>%
+pull(vev_log) %>%
+  as.numeric
+
+```
+
 
